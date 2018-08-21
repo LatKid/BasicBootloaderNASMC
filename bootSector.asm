@@ -5,7 +5,6 @@ EXTERN Kernel
 BITS 64
 BITS 16
 SECTION .text
-GLOBAL PrintToPos
 GLOBAL main
 main:
     jmp 0x0000:.FlushCS
@@ -39,13 +38,6 @@ main:
     jc .NoLongMode
     mov edi, FREE_SPACE
     jmp SwitchToLongMode
- 
- 
-BITS 64
-.Long:
-    jmp LM
- 
-BITS 16
  
 .NoLongMode:
     mov si, NoLongMode
@@ -108,5 +100,6 @@ times 510 - ($-$$) db 0
 dw 0xAA55
 BITS 64
 LM:
+call Kernel
 jmp $
 times 1024 - ($-$$) db 0
